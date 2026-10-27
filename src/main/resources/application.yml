@@ -1,0 +1,31 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: play-your-list
+  datasource:
+    url: jdbc:h2:mem:playyourlist;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+  sql:
+    init:
+      mode: always          # executa o data.sql (criacao das tabelas + carga inicial)
+      encoding: UTF-8       # garante os acentos do data.sql em qualquer sistema operacional
+  jpa:
+    hibernate:
+      ddl-auto: none        # as tabelas vem do data.sql do enunciado
+    open-in-view: false
+  h2:
+    console:
+      enabled: true         # http://localhost:8080/h2-console  (JDBC URL: jdbc:h2:mem:playyourlist)
+
+# Endereco usado pelos clientes Open Feign do microservico "api".
+# Como todos os servicos estao no mesmo projeto, apontam para a propria aplicacao.
+app:
+  servicos:
+    url: http://localhost:${server.port}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
